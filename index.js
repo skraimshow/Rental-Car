@@ -4,34 +4,36 @@ const rental = require('./rentalPrice');
 const fs = require('fs');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
+const FORM_HTML_PATH = 'form.html';
+const RESULT_HTML_PATH = 'result.html';
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static('public'));
 app.use('/pictures', express.static('images'));
 
-const formHtml = fs.readFileSync('form.html', 'utf8');
-const resultHtml = fs.readFileSync('result.html', 'utf8');
+const formHtml = fs.readFileSync(FORM_HTML_PATH, 'utf8');
+const resultHtml = fs.readFileSync(RESULT_HTML_PATH, 'utf8');
 
 app.post('/', (req, res) => {
-    const post = req.body;
-    const result = rental.price(
-        String(post.pickup),
-        String(post.dropoff),
-        Date.parse(post.pickupdate),
-        Date.parse(post.dropoffdate),
-        String(post.type),
-        Number(post.age)
+    const { pickup, dropoff, pickup_date, dropoff_date, car_type, age } = req.body;
+    const result = rental.calculateRentalPrice(
+        String(pickup),
+        String(dropoff),
+        Date.parse(pickup_date),
+        Date.parse(dropoff_date),
+        String(car_type),
+        Number(age)
     );
-    res.send(formHtml + resultHtml.replaceAll('$0', result));
+
+    const responseHtml = formHtml + resultHtml.replace(/\$0/g, result);
+    res.send(responseHtml);
 });
 
 app.get('/', (req, res) => {
     res.send(formHtml);
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
 });

@@ -13,13 +13,14 @@
             margin: 0;
             padding: 0;
         }
-        div.formContainer {
-            padding: 20px 20px;
+        .form-container {
+            padding: 20px;
             max-width: 600px;
             margin: 0 auto;
         }
         input[type="text"],
         input[type="number"],
+        input[type="date"],
         select {
             width: 100%;
             padding: 10px;
@@ -74,32 +75,42 @@
     </style>
 </head>
 <body>
-    <div class="formContainer">
+    <div class="form-container">
         <h1>Car Rental Booking Form</h1>
-        <form id="calcForm" method="post" action="http://localhost:3000">
-            <label for="pickup-location">Pickup Location:</label>
-            <input type="text" id="pickup-location" name="pickup" required>
+        <form id="booking-form" method="post" action="http://localhost:3000">
+            <div class="form-group">
+                <label for="pickup-location">Pickup Location:</label>
+                <input type="text" id="pickup-location" name="pickup" required>
+            </div>
     
-            <label for="dropoff-location">Dropoff Location:</label>
-            <input type="text" id="dropoff-location" name="dropoff" required>
-
-            <label for="pickup-date">Pickup Date:</label>
-            <input type="date" id="pickup-date" name="pickupdate" required>
-    
-            <label for="dropoff-date">Dropoff Date:</label>
-            <input type="date" id="dropoff-date" name="dropoffdate" required>
-
-            <label for="car-type">Car Type:</label>
-            <select id="car-type" name="type">
-                <option value="compact">Compact</option>
-                <option value="Electric">Electric</option>
-                <option value="cabrio">Cabrio</option>
-                <option value="racer">Racer</option>
-            </select>
+            <div class="form-group">
+                <label for="dropoff-location">Dropoff Location:</label>
+                <input type="text" id="dropoff-location" name="dropoff" required>
+            </div>
 
             <div class="form-group">
-                <label for="age">Diver's age</label>
-                <input type="number" class="form-control" name="age" required/>
+                <label for="pickup-date">Pickup Date:</label>
+                <input type="date" id="pickup-date" name="pickup_date" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="dropoff-date">Dropoff Date:</label>
+                <input type="date" id="dropoff-date" name="dropoff_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="car-type">Car Type:</label>
+                <select id="car-type" name="car_type">
+                    <option value="compact">Compact</option>
+                    <option value="electric">Electric</option>
+                    <option value="cabrio">Cabrio</option>
+                    <option value="racer">Racer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Driver's Age:</label>
+                <input type="number" id="age" name="age" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Search</button>
